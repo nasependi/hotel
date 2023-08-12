@@ -3,7 +3,7 @@
     <nav class="mt-2">
       <!-- Sidebar Menu -->
       <ul class="nav nav-pills nav-sidebar flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-        <li class="nav-item menu-open">
+        <li class="nav-item {{ request()->is('layout/home') ? 'menu-open' : '' }}">
           <a href="{{ url('layout/home') }}" class="nav-link">
             <i class="nav-icon fas fa-home"></i>
             <p>
@@ -12,8 +12,8 @@
             </p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a href="{{ url('bookings/index') }}" class="nav-link ">
+        <li class="nav-item {{ request()->is('bookings') ? 'menu-open' : '' }}">
+          <a href="{{ url('bookings') }}" class="nav-link ">
             <i class="nav-icon fas fa-user"></i>
             <p>
               Booking

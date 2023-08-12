@@ -10,5 +10,6 @@ class Booking extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['no_kamar', 'nama_kamar', 'checkin', 'checkout'];
+    // protected $fillable = ['no_kamar', 'nama_kamar', 'checkin', 'checkout'];
+    protected $guarded = [];
 }
