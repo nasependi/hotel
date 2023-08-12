@@ -1,33 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Booking List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>Booking List</h2>
-        <button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#bookingModal">
-            Add Booking
-        </button>
-        <table class="table table-bordered" id="bookingTable">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Room Number</th>
-                    <th>Room Name</th>
-                    <th>Check-In</th>
-                    <th>Check-Out</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+@extends('layout.main')
 
-    <!-- Booking Modal -->
+@section('judul')
+Booking
+@endsection
+
+@section('content')
+
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">Booking</h3>
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
+                            Tambah Booking
+                        </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table class="table table-bordered" id="bookingTable">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">NO</th>
+                          <th>No Kamar</th>
+                          <th>Nam Kamar</th>
+                          <th>Check In</th>
+                          <th>check Out</th>
+                          <th style="width: 40px">Opsi</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-end">
+                      <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+
     <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -115,5 +140,6 @@
             });
         });
     </script>
-</body>
-</html>
+@endsection
+
+
