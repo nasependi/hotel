@@ -91,6 +91,37 @@ Booking
                         @endforelse
                       </tbody>
                     </table>
+                    <div class="container mt-4">
+                        <!-- EXAMPLE 1 -->
+                        <div class="mb-4">
+                            <h2 class="mb-3">1. All-in-one example</h2>
+                            <div class="alert alert-primary mb-3">
+                                <ul class="mb-0">
+                                    <li>Click on an event to move it.</li>
+                                    <li>Click on empty space of the timeline to add a new event on predefined position.</li>
+                                    <li>Use +- keys to change zooming level.</li>
+                                    <li>Use vertical mouse wheel to scroll timeline horizontally.</li>
+                                </ul>
+                            </div>
+                            <div class="mb-2" id="sked1"></div>
+                            <small>
+                                <span class="text-danger">*</span>
+                                To make the example lightweight the timezones in here
+                                are set disregarding the DST, so they may be different
+                                from the actual ones, that's ok.
+                            </small>
+                        </div>
+                        <!-- EXAMPLE 2 -->
+                        <div class="mb-4">
+                            <h2 class="mb-3">2. Deferred rendering demo</h2>
+                            <div class="alert alert-primary mb-3">
+                                See the sources of this example to know how to initialize
+                                the component with its actual rendering postponed. Note
+                                that tzOffset = 0 in this example.
+                            </div>
+                            <div id="sked2"></div>
+                        </div>
+                    </div>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer clearfix">
@@ -143,7 +174,223 @@ Booking
                 </div>
             </div>
         </div>
-    {{-- <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+
+    <script type="text/javascript">
+        // --------------------------- Data --------------------------------
+        var locations = [
+            {id: '1', name: 'San Francisco', tzOffset: 7 * 60},
+            {id: '2', name: 'Sydney', tzOffset: -10 * 60},
+            {id: '3', name: 'New York', tzOffset: 4 * 60},
+            {id: 'london', name: 'London', tzOffset: -1 * 60},
+            {id: '5', name: 'Copenhagen', tzOffset: -2 * 60},
+            {id: '6', name: 'Berlin', tzOffset: -2 * 60},
+        ];
+        var events = [
+            {
+                name: 'Meeting 1',
+                location: 'london',
+                start: today(4, 15),
+                end: today(7, 30)
+            },
+            {
+                name: 'Meeting 2 (ovelapping)',
+                location: 'london',
+                start: today(6, 30),
+                end: today(9, 15)
+            },
+            {
+                name: 'Meeting 3 (ovelapping)',
+                location: 'london',
+                start: today(9, 0),
+                end: today(11, 30)
+            },
+            {
+                name: 'Meeting 4 (ovelapping)',
+                location: 'london',
+                start: today(7, 45),
+                end: today(8, 30)
+            },
+            {
+                name: 'Meeting 5 (ovelapping)',
+                location: 'london',
+                start: today(8, 0),
+                end: today(8, 15)
+            },
+            {
+                name: 'Meeting',
+                location: '1',
+                start: today(0, 0),
+                end: today(1, 30)
+            },
+            {
+                name: 'Meeting',
+                location: '5',
+                start: today(0, 0),
+                end: today(1, 30)
+            },
+            {
+                name: 'Meeting',
+                location: '1',
+                start: today(10, 0),
+                end: today(11, 30)
+            },
+            {
+                name: 'Meeting with custom class',
+                location: '2',
+                start: yesterday(22, 0),
+                end: today(1, 30),
+                class: 'custom-class'
+            },
+            {
+                name: 'Meeting just after the previous one',
+                location: '2',
+                start: today(1, 45),
+                end: today(2, 45),
+                class: 'custom-class'
+            },
+            {
+                name: 'And another one...',
+                location: '2',
+                start: today(3, 10),
+                end: today(5, 30),
+                class: 'custom-class'
+            },
+            {
+                name: 'Disabled meeting',
+                location: '3',
+                start: yesterday(22, 15),
+                end: yesterday(23, 30),
+                disabled: true
+            },
+            {
+                name: 'Meeting',
+                location: '3',
+                start: yesterday(23, 45),
+                end: today(1, 30)
+            },
+            {
+                name: 'Meeting that started early',
+                location: '6',
+                start: yesterday(21, 45),
+                end: today(0, 45)
+            },
+            {
+                name: 'Late meeting',
+                location: '5',
+                start: today(11, 15),
+                end: today(13, 45)
+            },
+        ];
+        // -------------------------- Helpers ------------------------------
+        function today(hours, minutes) {
+            var date = new Date();
+            date.setHours(hours, minutes, 0, 0);
+            return date;
+        }
+        function yesterday(hours, minutes) {
+            var date = today(hours, minutes);
+            date.setTime(date.getTime() - 24 * 60 * 60 * 1000);
+            return date;
+        }
+        function tomorrow(hours, minutes) {
+            var date = today(hours, minutes);
+            date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+            return date;
+        }
+        // --------------------------- Example 1 ---------------------------
+        var $sked1 = $('#ked1').skedTape({
+            caption: 'Cities',
+            start: yesterday(22, 0),
+            end: today(12, 0),
+            showEventTime: true,
+            showEventDuration: true,
+            scrollWithYWheel: true,
+            locations: locations.slice(),
+            events: events.slice(),
+            maxTimeGapHi: 60 * 1000, // 1 minute
+            minGapTimeBetween: 1 * 60 * 1000,
+            snapToMins: 1,
+            editMode: true,
+            timeIndicatorSerifs: true,
+            showIntermission: true,
+            formatters: {
+                date: function (date) {
+                    return $.fn.skedTape.format.date(date, 'l', '.');
+                },
+                duration: function (ms, opts) {
+                    return $.fn.skedTape.format.duration(ms, {
+                        hrs: 'ч.',
+                        min: 'мин.'
+                    });
+                },
+            },
+            canAddIntoLocation: function(location, event) {
+                return location.id !== 'london';
+            },
+            postRenderLocation: function($el, location, canAdd) {
+                this.constructor.prototype.postRenderLocation($el, location, canAdd);
+                $el.prepend('<i class="fas fa-thumbtack text-muted"/> ');
+            }
+        });
+        $sked1.on('event:dragEnded.skedtape', function(e) {
+            console.log(e.detail.event);
+        });
+        $sked1.on('event:click.skedtape', function(e) {
+            $sked1.skedTape('removeEvent', e.detail.event.id);
+        });
+        $sked1.on('timeline:click.skedtape', function(e, api) {
+            try {
+                $sked1.skedTape('startAdding', {
+                    name: 'New meeting',
+                    duration: 60 * 60 * 1000
+                });
+            }
+            catch (e) {
+                if (e.name !== 'SkedTape.CollisionError') throw e;
+                //alert('Already exists');
+            }
+        });
+        // --------------------------- Example 2 ---------------------------
+        var sked2Config = {
+            caption: 'Cities',
+            start: yesterday(23, 0),
+            end: tomorrow(0, 0),
+            showEventTime: true,
+            showEventDuration: true,
+            locations: locations.map(function(location) {
+                var newLocation = $.extend({}, location);
+                delete newLocation.tzOffset;
+                return newLocation;
+            }),
+            events: events.slice(),
+            tzOffset: 0,
+            sorting: true,
+            orderBy: 'name',
+        };
+        var $sked2 = $.skedTape(sked2Config);
+        $sked2.appendTo('#sked2').skedTape('render');
+        //$sked2.skedTape('destroy');
+        $sked2.skedTape(sked2Config);
+        // --------------------------- Example 3 ---------------------------
+        $('#modal1').on('shown.bs.modal', function() {
+            $('#sked3').skedTape(sked2Config);
+        });
+        $('#modal1').on('hidden.bs.modal', function() {
+            // This is not necessary, but it always a good idea to do not
+            // take processing time for elements that don't show.
+            $('#sked3').skedTape('destroy');
+        });
+
+        var $skedTabBtn = $('a[data-toggle="tab"][href="#sked-tab"]');
+        $skedTabBtn.on('shown.bs.tab', function(e) {
+            $('#sked4').skedTape(sked2Config);
+        });
+        $skedTabBtn.on('hidden.bs.tab', function(e) {
+            $('#sked4').skedTape('destroy');
+        });
+    </script>
+
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -179,57 +426,7 @@ Booking
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var table = $("#bookingTable").DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('bookings.data') }}",
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'no_kamar', name: 'no_kamar' },
-                    { data: 'nama_kamar', name: 'nama_kamar' },
-                    { data: 'checkin', name: 'checkin' },
-                    { data: 'checkout', name: 'checkout' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'updated_at', name: 'updated_at' },
-                    { data: 'actions', name: 'actions', orderable: false, searchable: false },
-                ],
-            });
 
-            // Handle form submission via Ajax
-            $("#bookingForm").submit(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: "{{ route('bookings.store') }}",
-                    type: "POST",
-                    data: $(this).serialize(),
-                    dataType: "json",
-                    success: function (response) {
-                        if (response.booking) {
-                            // Close the modal
-                            $("#bookingModal").modal("hide");
-
-                            // Clear form fields
-                            $("#bookingForm")[0].reset();
-
-                            // Reload DataTable
-                            table.ajax.reload();
-
-                            // Show success message (optional)
-                            alert(response.message);
-                        } else {
-                            alert("Failed to add booking.");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
-                        alert("An error occurred while adding the booking.");
-                    },
-                });
-            });
-        });
-    </script> --}}
 @endsection
 
 

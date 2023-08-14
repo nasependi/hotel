@@ -32,8 +32,13 @@
 
 <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('/') }}css/adminlte.css">
+<link rel="stylesheet" href="{{ asset('/') }}css/jquery.skedTape.css">
+<link rel="stylesheet" href="{{ asset('/') }}css/jquery.skedtape.css">
 
 <!-- For RTL verison use {{ asset('/') }}css/rtl/adminlte.rtl.css, remove dist/css/adminlte.css -->
 <!-- <link rel="stylesheet" href="{{ asset('/') }}css/rtl/adminlte.rtl.css""> -->
@@ -272,7 +277,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-9SEPo+fwJFpMUet/KACSwO+Z/dKMReF9q4zFhU/fT9M=" crossorigin="anonymous"></script>
 
 <!-- REQUIRED SCRIPTS -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="{{ asset('/') }}js/jquery.skedTape.js"></script>
+<script src="{{ asset('/') }}js/jquery.skedtape.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/') }}js/adminlte.js"></script>
 
@@ -303,131 +311,6 @@
 
     <!-- ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js" integrity="sha256-7lWo7cjrrponRJcS6bc8isfsPDwSKoaYfGIHgSheQkk=" crossorigin="anonymous"></script>
-
-    <script>
-      // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-      // IT'S ALL JUST JUNK FOR DEMO
-      // ++++++++++++++++++++++++++++++++++++++++++
-
-      /* ChartJS
-        * -------
-        * Here we will create a few charts using ChartJS
-        */
-
-      //-----------------------
-      // - MONTHLY SALES CHART -
-      //-----------------------
-      (function () {
-        'use strict'
-        // Get context with querySelector - using Chart.js .getContext('2d') method.
-        var salesChartCanvas = document.querySelector('#salesChart').getContext('2d')
-
-        var salesChartData = {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [
-            {
-              label: 'Digital Goods',
-              backgroundColor: 'rgba(60,141,188,0.9)',
-              borderColor: 'rgba(60,141,188,0.8)',
-              fill: true,
-              pointRadius: 0,
-              pointColor: '#3b8bba',
-              pointStrokeColor: 'rgba(60,141,188,1)',
-              pointHighlightFill: '#fff',
-              pointHighlightStroke: 'rgba(60,141,188,1)',
-              data: [28, 48, 40, 19, 86, 27, 90]
-            },
-            {
-              label: 'Electronics',
-              backgroundColor: 'rgba(210, 214, 222, 1)',
-              borderColor: 'rgba(210, 214, 222, 1)',
-              fill: true,
-              pointRadius: 0,
-              pointColor: 'rgba(210, 214, 222, 1)',
-              pointStrokeColor: '#c1c7d1',
-              pointHighlightFill: '#fff',
-              pointHighlightStroke: 'rgba(220,220,220,1)',
-              data: [65, 59, 80, 81, 56, 55, 40]
-            }
-          ]
-        }
-
-        var salesChartOptions = {
-          maintainAspectRatio: false,
-          responsive: true,
-          tension: 0.4,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            xAxes: {
-              gridLines: {
-                display: false
-              }
-            },
-            yAxes: {
-              gridLines: {
-                display: false
-              }
-            }
-          }
-        }
-
-        // This will get the first returned node in the js collection.
-        var salesChart = new Chart(salesChartCanvas, {
-          type: 'line',
-          data: salesChartData,
-          options: salesChartOptions
-        })
-
-        //---------------------------
-        // - END MONTHLY SALES CHART -
-        //---------------------------
-
-        //-------------
-        // - PIE CHART -
-        //-------------
-
-        // Get context with querySelector - using Chart.js .getContext('2d') method.
-        var pieChartCanvas = document.querySelector('#pieChart').getContext('2d')
-
-        var pieData = {
-          labels: [
-            'Chrome',
-            'IE',
-            'FireFox',
-            'Safari',
-            'Opera',
-            'Navigator'
-          ],
-          datasets: [
-            {
-              data: [700, 500, 400, 600, 300, 100],
-              backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de']
-            }
-          ]
-        }
-        var pieOptions = {
-          plugins: {
-            legend: {
-              display: false
-            }
-          }
-        }
-        // Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        // eslint-disable-next-line no-unused-vars
-        var pieChart = new Chart(pieChartCanvas, {
-          type: 'doughnut',
-          data: pieData,
-          options: pieOptions
-        })
-      })()
-      //-----------------
-      // - END PIE CHART -
-      //-----------------
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </body>
 </html>
