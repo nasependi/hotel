@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingSecondController;
+use App\Http\Controllers\KamarController;
+use App\Http\Controllers\JkamarController;
 use App\Http\Controllers\Layout;
 use Illuminate\Support\Facades\Route; // Perhatikan penggunaan Illuminate\Support\Facades\Route
 
@@ -20,11 +22,7 @@ Route::controller(BookingSecondController::class)->group(function() {
     Route::delete('booking/{booking}', 'destroy');
 });
 
-Route::get('/bookings', [BookingSecondController::class, 'index'])->name('bookings.index');
-Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
-Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+Route::resource('kamar', KamarController::class);
 
-Route::get('/bookings/data', [BookingController::class, 'data'])->name('bookings.data');
-Route::get('/bookings/{booking}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
-Route::put('/bookings/{booking}', [BookingController::class, 'update'])->name('bookings.update');
-Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+Route::resource('jkamar', JkamarController::class);
+

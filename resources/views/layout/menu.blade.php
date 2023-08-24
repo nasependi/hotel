@@ -21,31 +21,25 @@
             </p>
           </a>
         </li>
-        <li class="nav-item ">
+         <li class="nav-item {{ request()->is('kamar') ? 'menu-open' : '' }}">
           <a href="javascript:;" class="nav-link ">
-            <i class="nav-icon fas fa-circle"></i>
+            <i class="nav-icon fas fa-bed"></i>
             <p>
-              Widgets
+              Kamar
               <i class="end fas fa-angle-right"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ asset('/') }}pages/widgets/small-box.html" class="nav-link ">
-                <i class="fas fa-angle-right"></i>
-                <p>Small Box</p>
+              <a href="{{ url('kamar')}}" class="nav-link ">
+                <i class="nav-icon far fa-circle"></i>
+                <p>Kamar</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ asset('/') }}pages/widgets/info-box.html" class="nav-link ">
-                <i class="fas fa-angle-right"></i>
-                <p>info Box</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ asset('/') }}pages/widgets/cards.html" class="nav-link ">
-                <i class="fas fa-angle-right"></i>
-                <p>Cards</p>
+              <a href="{{ url('jkamar')}}" class="nav-link ">
+                <i class="nav-icon far fa-circle"></i>
+                <p>Jenis Kamar</p>
               </a>
             </li>
           </ul>

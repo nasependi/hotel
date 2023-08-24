@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <!-- For RTL verison -->
 <!-- <html lang="en" dir="rtl"> -->
 
@@ -7,6 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- Primary Meta Tags -->
     <title>AdminLTE 4 | Dashboard 2</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="AdminLTE 4 | Dashboard 2">
     <meta name="author" content="ColorlibHQ">
@@ -229,7 +231,7 @@
                     <img src="{{ asset('/') }}assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-80 shadow">
                     <span class="brand-text fw-light">AdminLTE 4</span>
                 </a>
-                <a class="pushmenu mx-1" data-lte-toggle="sidebar-mini" href="javascript:;" role="button"><i class="fas fa-angle-double-left"></i></a>
+                <a class="pushmenu mx-1" data-lte-toggle="sidebar-mini" href="javascript:;" role="button"><i class="fas fa-bars"></i></a>
             </div>
             @include('layout.menu')
             <!-- Sidebar -->

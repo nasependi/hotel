@@ -91,25 +91,6 @@
                                 </tbody>
                             </table>
                             <div class="container mt-4">
-                                <!-- EXAMPLE 1 -->
-                                <div class="mb-4">
-                                    <h2 class="mb-3">1. All-in-one example</h2>
-                                    <div class="alert alert-primary mb-3">
-                                        <ul class="mb-0">
-                                            <li>Click on an event to move it.</li>
-                                            <li>Click on empty space of the timeline to add a new event on predefined position.</li>
-                                            <li>Use +- keys to change zooming level.</li>
-                                            <li>Use vertical mouse wheel to scroll timeline horizontally.</li>
-                                        </ul>
-                                    </div>
-                                    <div class="mb-2" id="sked1"></div>
-                                    <small>
-                                        <span class="text-danger">*</span>
-                                        To make the example lightweight the timezones in here
-                                        are set disregarding the DST, so they may be different
-                                        from the actual ones, that's ok.
-                                    </small>
-                                </div>
                                 <!-- EXAMPLE 2 -->
                                 <div class="mb-4">
                                     <h2 class="mb-3">2. Deferred rendering demo</h2>
@@ -412,38 +393,6 @@
         });
     </script>
 
-    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bookingModalLabel">Add Booking</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="bookingForm">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="roomNumber" class="form-label">Room Number</label>
-                            <input type="text" class="form-control" id="roomNumber" name="no_kamar" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="roomName" class="form-label">Room Name</label>
-                            <input type="text" class="form-control" id="roomName" name="nama_kamar" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="checkin" class="form-label">Check-In</label>
-                            <input type="date" class="form-control" id="checkin" name="checkin" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="checkout" class="form-label">Check-Out</label>
-                            <input type="date" class="form-control" id="checkout" name="checkout" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
