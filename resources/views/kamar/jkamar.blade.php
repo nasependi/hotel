@@ -34,10 +34,38 @@
                                                 <td>{{ $jk->jenis_kamar }}</td>
                                                 <td>{{ $jk->harga_kamar }}</td>
                                                 <td>
-                                                    <button class="btn btn-warning btn-edit" data-id="{{ $jk->id }}" data-jenis="{{ $jk->jenis_kamar }}" data-harga="{{ $jk->harga_kamar }}">Edit</button>
+                                                    <button class="btn btn-warning btn-edit" data-bs-toggle="modal" data-bs-target="#editModal{{ $jk->id }}" data-id="{{ $jk->id }}" data-jenis="{{ $jk->jenis_kamar }}" data-harga="{{ $jk->harga_kamar }}">Edit</button>
                                                     <button class="btn btn-danger btn-delete" data-id="{{ $jk->id }}">Hapus</button>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade" id="editModal{{ $jk->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Jenis Kamar</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form id="editForm">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <input type="hidden" id="edit_id" name="edit_id" value="{{ $jk->id }}">
+                                                                <div class="mb-3">
+                                                                    <label for="edit_jenis_kamar" class="form-label">Jenis Kamar</label>
+                                                                    <input type="text" class="form-control" id="edit_jenis_kamar" name="jenis_kamar" value="{{ old('jenis_kamar') ?? $jk->jenis_kamar }}" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="edit_harga_kamar" class="form-label">Harga Kamar</label>
+                                                                    <input type="number" class="form-control" id="edit_harga_kamar" name="harga_kamar" step="0.01" value="{{ old('harga_kamar') ?? $jk->harga_kamar }}" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit" class="btn btn-primary" id="updateBtn">Simpan Perubahan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -80,34 +108,6 @@
     </div>
 
     <!-- Modal Edit Jenis Kamar -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Jenis Kamar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="editForm">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="hidden" id="edit_id" name="edit_id">
-                        <div class="mb-3">
-                            <label for="edit_jenis_kamar" class="form-label">Jenis Kamar</label>
-                            <input type="text" class="form-control" id="edit_jenis_kamar" name="edit_jenis_kamar" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_harga_kamar" class="form-label">Harga Kamar</label>
-                            <input type="number" class="form-control" id="edit_harga_kamar" name="edit_harga_kamar" step="0.01" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary" id="updateBtn">Simpan Perubahan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('script')
@@ -147,10 +147,13 @@
             // Delete action
             $(".btn-delete").on("click", function() {
                 let id = $(this).data("id");
-
+                let csrfToken = $('meta[name="csrf-token"]').attr('content'); // Get the CSRF token from the meta tag
                 $.ajax({
                     type: "DELETE",
                     url: `/jkamar/${id}`,
+                    data: {
+                        _token: csrfToken // Include the CSRF token in the request data
+                    },
                     success: function(response) {
                         location.reload();
                     },
